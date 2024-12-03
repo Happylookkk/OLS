@@ -1,0 +1,13 @@
+# 多元线性回归
+## 数据转换
+states<-as.data.frame(state.x77[,c("Murder","Population","Illiteracy","Income","Frost")])
+
+## 检测二变量关系（多元回归分析中，第一步最好检查一下自变量间的相关性）
+cor(states)
+
+## 生成散点图矩阵
+library(car)
+scatterplotMatrix(states,smooth=FALSE,main="Scatter PlotMatrix")
+
+fit<-lm(Murder~Population+Illiteracy+Income+Frost,data=states)
+summary(fit)
