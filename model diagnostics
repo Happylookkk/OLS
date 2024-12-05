@@ -1,0 +1,25 @@
+# 标准方法
+​fit<-lm(weight~height,data=women)
+par(mfrow=c(2,2))
+plot(fit)
+par(mfrow=c(1,1))
+
+​# 改进的方法
+## 正态性
+​library(car)
+states<-as.data.frame(state.x77[,c("Murder","Population","Illiteracy","Income","Frost")])
+fit<-lm(Murder~Population+Illiteracy+Income+Frost,data=states)
+qqPlot(fit,labels=row.names(states),id=list(method="identify"),simulate=TRUE,main="Q-Q Plot")
+
+​## 误差的独立性
+durbinWatsonTest(fit)
+
+## 线性
+crPlots(fit)
+
+## 同方差性
+ncvTest(fit)
+spreadLevelPlot(fit)
+​
+## 多重共线性​
+vif(fit)
